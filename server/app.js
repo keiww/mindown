@@ -6,10 +6,11 @@ const socket = require('socket.io')
 const _ = require('koa-route')
 const Koa = require('koa')
 
-require('./db')
-// const dblite = require('./dblite')
 const utils = require('./utils')
-const io = require('./io-mongo')
+const dblite = require('./dblite')
+const io = require('./io-sqlite')
+// require('./db')
+// const io = require('./io-mongo')
 
 const app = new Koa()
 const server = http.createServer(app.callback())
@@ -34,7 +35,7 @@ app.use(_.get('/:path', (ctx, path, next) => {
 
 
 const run = async () => {
-  // await dblite.init()
+  await dblite.init()
   server.listen(port, () => {
     console.log(`=> http://localhost:${port}`)
   })
