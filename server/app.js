@@ -10,7 +10,7 @@ const Koa = require('koa')
 const utils = require('./utils')
 const dblite = require('./dblite')
 // const io = require('./io-sqlite')
-const db = require('./db')
+// const db = require('./db')
 const io = require('./io-mongo')
 
 const app = new Koa()
@@ -38,18 +38,18 @@ app.use(_.get('/:path', (ctx, path, next) => {
 }))
 
 
-// const run = async () => {
-//   await dblite.init()
-//   server.listen(port, () => {
-//     console.log(`=> http://localhost:${port}`)
-//   })
-// }
-// run()
-
-db.once('open', () => {
-  console.log('db is connected')
+const run = async () => {
+  await dblite.init()
   server.listen(port, () => {
     console.log(`=> http://localhost:${port}`)
   })
-})
+}
+run()
+
+// db.once('open', () => {
+//   console.log('db is connected')
+//   server.listen(port, () => {
+//     console.log(`=> http://localhost:${port}`)
+//   })
+// })
 
