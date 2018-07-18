@@ -9,9 +9,9 @@ const Koa = require('koa')
 
 const utils = require('./utils')
 const dblite = require('./dblite')
-// const io = require('./io-sqlite')
+const io = require('./io-sqlite')
 // const db = require('./db')
-const io = require('./io-mongo')
+// const io = require('./io-mongo')
 
 const app = new Koa()
 const server = http.createServer(app.callback())
