@@ -2,15 +2,16 @@ const fs = require('fs')
 const path = require('path')
 const http = require('http')
 const serve = require('koa-static')
+const compress = require('koa-compress')
 const socket = require('socket.io')
 const _ = require('koa-route')
 const Koa = require('koa')
 
 const utils = require('./utils')
 const dblite = require('./dblite')
-const io = require('./io-sqlite')
-// require('./db')
-// const io = require('./io-mongo')
+// const io = require('./io-sqlite')
+const db = require('./db')
+const io = require('./io-mongo')
 
 const app = new Koa()
 const server = http.createServer(app.callback())
@@ -26,6 +27,9 @@ app.use(_.get('/', (ctx) => {
 }))
 
 app.use(serve(staticPath))
+if (process.env.NODE_ENV === 'production') {
+  app.use(compress())
+}
 
 app.use(_.get('/:path', (ctx, path, next) => {  
   // return index.html
@@ -34,11 +38,18 @@ app.use(_.get('/:path', (ctx, path, next) => {
 }))
 
 
-const run = async () => {
-  await dblite.init()
+// const run = async () => {
+//   await dblite.init()
+//   server.listen(port, () => {
+//     console.log(`=> http://localhost:${port}`)
+//   })
+// }
+// run()
+
+db.once('open', () => {
+  console.log('db is connected')
   server.listen(port, () => {
     console.log(`=> http://localhost:${port}`)
   })
-}
+})
 
-run()

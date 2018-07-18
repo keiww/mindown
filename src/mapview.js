@@ -2,8 +2,6 @@
 
 import parse from 'markmap/parse.markdown.js'
 import transform from 'markmap/transform.headings.js'
-import d3 from 'd3'
-import 'markmap/d3-flextree.js'
 import Markmap from 'markmap/view.mindmap.js'
 
 const mapview = document.querySelector('#mapview')
