@@ -1,5 +1,7 @@
 // src/mapview.js
 
+import 'd3'
+import 'markmap/d3-flextree.js'
 import parse from 'markmap/parse.markdown.js'
 import transform from 'markmap/transform.headings.js'
 import Markmap from 'markmap/view.mindmap.js'
